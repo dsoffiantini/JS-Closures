@@ -12,13 +12,13 @@ var outer = function(){
 // Invoke outer saving the return value into another variable called 'inner'.
 
 // Code Here
-
+var inner = outer();
 
 //Once you do that, invoke inner.
 
   //Code Here
 
-
+inner();
 
 //////////////////PROBLEM 2////////////////////
 
@@ -37,7 +37,9 @@ var callFriend = function(){
 
   //Code Here
 
-
+function makeCall() {
+  console.log(callFriend());
+}
 
 
 
@@ -52,13 +54,21 @@ var callFriend = function(){
 */
 
 //Code Here
+function makeCounter() {
+  var num = 1;
 
+	function count() {
+		return num++;
+	}
+
+  return count;
+}
 //Uncomment this once you make your function
-//   var count = makeCounter();
-//   count(); // 1
-//   count(); // 2
-//   count(); // 3
-//   count(); // 4
+  var count = makeCounter();
+  count(); // 1
+  count(); // 2
+  count(); // 3
+  count(); // 4
 
 
 
@@ -72,14 +82,18 @@ var callFriend = function(){
 // You will need to use the module pattern to achieve this.
 
 function counterFactory(value) {
-
-  // Code here.
-
-
-  return {
-  }
+ var total = value;
+ function inc() {
+ 	total += 1;
+ }
+ function dec() {
+ 	total -=1;
+ }
+ return {
+ 	inc: inc,
+ 	dec: dec
+ };
 }
-
 
 counter = counterFactory(10);
 
@@ -91,17 +105,20 @@ counter = counterFactory(10);
 
 // Inside the motivation function create another function called message that will return 'You're doing awesome, keep it up firstname lastname.'
 
-  function motivation(firstname, lastname){
+function motivation(firstname, lastname){
 
-    var welcomeText = 'You\'re doing awesome, keep it up ';
+  var welcomeText = 'You\'re doing awesome, keep it up ';
 
-    // code message function here.
-
-
-    //Uncommment this to return the value of your invoked message function
-
-    //return message()
+  // code message function here.
+  function message() {
+    return welcomeText + firstname + ' ' + lastname +'.';
   }
+
+  //Uncommment this to return the value of your invoked message function
+
+  return message();
+}
+
 
   motivation('Billy', 'Bob'); // 'Your doing awesome keep it up Billy Bob
 
@@ -126,13 +143,15 @@ counter = counterFactory(10);
     // Anything that is being returned is made public and can be invoked from outside our lexical scope
 
     return {
-      // Code here.
+      publicMethod: function() {
+    		return privateMethod();
+    	}
     };
 
   })();
 
 //Uncomment this after you create your public method
-//   module.publicMethod();
+  module.publicMethod();
 
 
 
@@ -163,6 +182,8 @@ timeOutCounter();
 
 var funcArray = [];
 
+
+function
 /*
   Make the following code work
 
