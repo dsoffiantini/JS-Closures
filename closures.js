@@ -83,14 +83,14 @@ function makeCounter() {
 
 function counterFactory(value) {
  var total = value;
- function inc() {
- 	total += 1;
- }
+
  function dec() {
- 	total -=1;
+ 	return total -=1;
  }
  return {
- 	inc: inc,
+ 	inc: function() {
+  	return total += 1;
+  },
  	dec: dec
  };
 }
@@ -160,15 +160,20 @@ function motivation(firstname, lastname){
 // So that it logs ( 0 then 1 then 2 then 3, etc). Run this code in your console to see what the output is.
 
 
+
 function timeOutCounter() {
+  var timePrint = function(i) {
+    return function() {
+      newScope(i);
+    }
+  };
+
   for (var i = 0; i <= 5; i++) {
-    setTimeout(function() {
-      console.log(i);
-    }, i * 1000)
+    setTimeout(timePrint(i), i * 1000)
   }
 
   function newScope(i) {
-    console.log(i)
+    console.log(i);
   }
 }
 timeOutCounter();
@@ -182,8 +187,20 @@ timeOutCounter();
 
 var funcArray = [];
 
+function indexReturn() {
+  var count = -1;
+  return function() {
+    count++;
+    return count;
+  }
+}
 
-function
+
+var inner = indexReturn();
+
+for (var i = 0; i < 6; i++) {
+  funcArray.push(inner);
+}
 /*
   Make the following code work
 
